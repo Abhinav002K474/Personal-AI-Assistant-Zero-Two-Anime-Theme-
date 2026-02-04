@@ -12,6 +12,7 @@ import tempfile
 import soundfile as sf
 
 ENVIRONMENT VARIABLES ==================
+
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 ELEVEN_API_KEY = os.getenv("ELEVEN_API_KEY")
 ELEVEN_VOICE_ID = os.getenv("ELEVEN_VOICE_ID")
@@ -20,6 +21,7 @@ SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
 
  SAFE SPEAK FUNCTION ==================
+
 def speak(text):
     """
     Offline-safe TTS placeholder.
@@ -28,6 +30,7 @@ def speak(text):
     print("Zero Two:", text)
 
  SPEECH INPUT ==================
+
 def take_command(duration=8):
     r = sr.Recognizer()
     fs = 44100
@@ -44,6 +47,7 @@ def take_command(duration=8):
         return "none"
 
  GREETING ==================
+
 def wish_me():
     hour = datetime.datetime.now().hour
     if hour < 12:
@@ -55,6 +59,8 @@ def wish_me():
     speak("I am Zero Two. How can I help you?")
 
  CHAT PLACEHOLDER ==================
+
+
 def chat_with_ai(prompt):
     """
     API-free placeholder.
@@ -74,7 +80,8 @@ def get_anime_news(anime_name):
     return [f"Anime news for {anime_name} is disabled in public version."]
 
  OPEN APPS ==================
-def open_app(app_name):
+
+ef open_app(app_name):
     user_path = os.path.expanduser("~")
 
     if "discord" in app_name:
