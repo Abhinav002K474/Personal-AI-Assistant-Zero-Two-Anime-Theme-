@@ -11,7 +11,7 @@ import os
 import tempfile
 import soundfile as sf
 
-# ================== ENVIRONMENT VARIABLES ==================
+ENVIRONMENT VARIABLES ==================
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 ELEVEN_API_KEY = os.getenv("ELEVEN_API_KEY")
 ELEVEN_VOICE_ID = os.getenv("ELEVEN_VOICE_ID")
@@ -19,7 +19,7 @@ NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
 
-# ================== SAFE SPEAK FUNCTION ==================
+ SAFE SPEAK FUNCTION ==================
 def speak(text):
     """
     Offline-safe TTS placeholder.
@@ -27,7 +27,7 @@ def speak(text):
     """
     print("Zero Two:", text)
 
-# ================== SPEECH INPUT ==================
+ SPEECH INPUT ==================
 def take_command(duration=8):
     r = sr.Recognizer()
     fs = 44100
@@ -43,7 +43,7 @@ def take_command(duration=8):
     except:
         return "none"
 
-# ================== GREETING ==================
+ GREETING ==================
 def wish_me():
     hour = datetime.datetime.now().hour
     if hour < 12:
@@ -54,7 +54,7 @@ def wish_me():
         speak("Good Evening Abhinav!")
     speak("I am Zero Two. How can I help you?")
 
-# ================== CHAT PLACEHOLDER ==================
+ CHAT PLACEHOLDER ==================
 def chat_with_ai(prompt):
     """
     API-free placeholder.
@@ -62,18 +62,18 @@ def chat_with_ai(prompt):
     """
     return "Chat feature is disabled in public version."
 
-# ================== NEWS PLACEHOLDER ==================
+ NEWS PLACEHOLDER ==================
 def get_news():
     return [
         "News service is disabled in public version.",
         "Add your own API key to enable it."
     ]
 
-# ================== ANIME NEWS PLACEHOLDER ==================
+ ANIME NEWS PLACEHOLDER ==================
 def get_anime_news(anime_name):
     return [f"Anime news for {anime_name} is disabled in public version."]
 
-# ================== OPEN APPS ==================
+ OPEN APPS ==================
 def open_app(app_name):
     user_path = os.path.expanduser("~")
 
@@ -104,7 +104,7 @@ def open_app(app_name):
     else:
         speak("Application not recognized.")
 
-# ================== MAIN LOOP ==================
+ MAIN LOOP ==================
 def main():
     wish_me()
 
