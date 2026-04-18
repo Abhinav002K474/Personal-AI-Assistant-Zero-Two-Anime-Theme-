@@ -351,3 +351,10 @@ function speakTextFallback(text, onEndCallback = null) {
 if (window.speechSynthesis && window.speechSynthesis.onvoiceschanged !== undefined) {
   window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 }
+
+// ==========================================
+// RENDER FREE TIER COLD-START WAKE UP PING
+// ==========================================
+// Render's free tier sleeps after 15 mins. This triggers an immediate
+// background request to wake it up silently when the Vercel site loads!
+fetch(`${BACKEND_URL}/`).catch(e => console.log("Wake up ping sent"));
