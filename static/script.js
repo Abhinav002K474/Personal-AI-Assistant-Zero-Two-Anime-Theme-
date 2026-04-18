@@ -3,6 +3,9 @@ const chatContainer = document.getElementById('chat');
 const micBtn = document.getElementById('mic-btn');
 const statusIndicator = document.getElementById('status-indicator');
 
+// ⚠️ CHANGE THIS URL TO YOUR RENDER APP URL AFTER DEPLOYING ⚠️
+const BACKEND_URL = "https://your-app.onrender.com";
+
 const DOMPurifyHelpers = {
     escapeHTML: function(str) {
         let div = document.createElement('div');
@@ -41,7 +44,7 @@ function handleNoSpeech() {
     statusIndicator.innerText = "Didn't catch that!";
     addMessage("Darling... I didn't catch that. Try again?", 'Zero Two', 'dar-msg');
     
-    fetch("http://localhost:5050/no_speech")
+    fetch(`${BACKEND_URL}/no_speech`)
         .then(res => res.json())
         .then(data => {
             if (data.audio) {
@@ -169,7 +172,7 @@ function startListening() {
         hasGreeted = true;
         micBtn.classList.add('active');
         statusIndicator.innerText = "Greeting...";
-        fetch("http://localhost:5050/greet")
+        fetch(`${BACKEND_URL}/greet`)
             .then(res => res.json())
             .then(data => {
                 addMessage(data.response, 'Zero Two', 'dar-msg');
@@ -196,7 +199,7 @@ function startListening() {
 
 async function sendCommand(text) {
     try {
-        const res = await fetch("http://localhost:5050/command", {
+        const res = await fetch(`${BACKEND_URL}/command`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({query: text})
