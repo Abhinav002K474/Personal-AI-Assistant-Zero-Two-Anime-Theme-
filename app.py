@@ -65,7 +65,7 @@ def get_elevenlabs_audio(text):
     headers = {"xi-api-key": ELEVEN_API_KEY, "Content-Type": "application/json"}
     data = {"text": text, "voice_settings": {"stability": 0.5, "similarity_boost": 0.8}}
     try:
-        response = requests.post(url, headers=headers, json=data)
+        response = requests.post(url, headers=headers, json=data, timeout=10)
         if response.status_code == 200:
             print("ElevenLabs: Success fetching audio!")
             return base64.b64encode(response.content).decode("utf-8")
@@ -99,7 +99,7 @@ def chat_with_gpt(prompt):
             ]
         }
         
-        response = requests.post(url, headers=headers, json=data)
+        response = requests.post(url, headers=headers, json=data, timeout=15)
         result = response.json()
         
         if "error" in result:
@@ -116,7 +116,7 @@ def get_news():
         return "News API key is missing."
     try:
         url = f"https://newsapi.org/v2/top-headlines?country=in&apiKey={NEWS_API_KEY}"
-        response = requests.get(url).json()
+        response = requests.get(url, timeout=10).json()
         articles = response.get("articles", [])
         if articles:
             return "Here is the top news. " + ". ".join([a["title"] for a in articles[:3]])
@@ -129,13 +129,13 @@ def get_news():
 def get_anime_news(anime_name):
     try:
         search_url = f"https://api.jikan.moe/v4/anime?q={anime_name}&limit=1"
-        search_response = requests.get(search_url).json()
+        search_response = requests.get(search_url, timeout=10).json()
         if not search_response.get("data"):
             return f"Could not find anime: {anime_name}"
         
         anime_id = search_response["data"][0]["mal_id"]
         news_url = f"https://api.jikan.moe/v4/anime/{anime_id}/news"
-        news_response = requests.get(news_url).json()
+        news_response = requests.get(news_url, timeout=10).json()
         articles = news_response.get("data", [])
         if articles:
             return f"Recent news for {anime_name}: " + ". ".join([a["title"] for a in articles[:3]])
@@ -228,10 +228,19 @@ def greet():
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return "Zero Two backend is running!"
 
 @app.route("/command", methods=["POST"])
-def command():
+def command_route():
+    try:
+        return command_logic()
+    except Exception as e:
+        return jsonify({
+            "response": "Oops! Something went wrong in my brain.",
+            "error": str(e)
+        }), 500
+
+def command_logic():
     data = request.json
     query = data.get("query", "").lower()
     
