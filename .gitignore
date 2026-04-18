@@ -1,0 +1,7 @@
+.env
+__pycache__/
+*.pyc
+.vscode/
+*.mp3
+*.wav
+pyrightconfig.json

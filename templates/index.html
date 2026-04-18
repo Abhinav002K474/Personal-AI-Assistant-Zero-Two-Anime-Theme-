@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero Two - AI Assistant</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=2.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Live2D & PixiJS Requirements -->
+    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@7.x/dist/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/index.min.js"></script>
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    
+    <div class="main-container">
+        <!-- Dashboard Left Panel -->
+        <aside class="left-panel">
+            <!-- Chat Output -->
+            <div class="chat-wrapper">
+                <div id="chat" class="chat-container">
+                    <!-- Chat messages will dynamically appear here -->
+                </div>
+                
+                <div class="status-indicator" id="status-indicator">
+                    Waiting for command...
+                </div>
+            </div>
+
+            <!-- Action Area -->
+            <div class="controls">
+                <button id="mic-btn" class="mic-btn" onclick="startListening()" title="Start Voice Input" aria-label="Microphone">
+                    <i class="fas fa-microphone"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Avatar Right Panel -->
+        <section class="right-panel">
+            <div class="avatar-container">
+                <img id="character-img" src="{{ url_for('static', filename='images/idle.png') }}" class="live-avatar avatar" alt="Zero Two">
+                <div id="wave-container" class="wave-container hidden">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Script that uses url_for must be inline for the URLs, or just rely on standard path -->
+    <script>
+        const IDLE_IMG = "{{ url_for('static', filename='images/idle.png') }}";
+        const TALK_IMG = "{{ url_for('static', filename='images/talking.png') }}";
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}?v=2.5"></script>
+</body>
+</html>
